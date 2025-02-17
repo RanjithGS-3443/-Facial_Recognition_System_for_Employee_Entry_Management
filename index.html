@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Attendance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Face Recognition Employee Management System</h1>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="attendance">Take Attendance</button>
+            <button class="tab-btn" data-tab="register">Register New Face</button>
+        </div>
+
+        <div class="tab-content active" id="attendance">
+            <div class="camera-container">
+                <img id="camera-feed" src="{{ url_for('camera') }}" alt="Camera Feed">
+            </div>
+            <div class="success-overlay" id="successOverlay">
+                <div class="success-animation">
+                    <div class="checkmark">
+                        <div class="check-icon"></div>
+                    </div>
+                    <p class="success-message">Attendance Marked Successfully!</p>
+                    <p class="student-name" id="markedStudentName"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="register">
+            <form id="registrationForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="image">Upload Face Image:</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <div class="image-preview" id="imagePreview"></div>
+                </div>
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="usn">EMP ID:</label>
+                    <input type="text" id="empid" name="empid" required>
+                </div>
+                <div class="form-group">
+                    <label for="Position">Position:</label>
+                    <select id="Position" name="Position" required>
+                        <option value="">Select Position</option>
+                        <option value="HP">HR</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Employee">Employee</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Year_of_Joing">Year of Joing:</label>
+                    <select id="Year_of_Joing" name="Year_of_Joing" required>
+                        <option value="">Select year</option>
+                        <option value="1">2020</option>
+                        <option value="2">2021</option>
+                        <option value="3">2022</option>
+                        <option value="4">2023</option>
+                        <option value="5">2024</option>
+                        <option value="6">2025</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mobile_number_and_email">mobile_number and email:</label>
+                    <input type="text" id="mobile_number_and_email" name="mobile_number_and_email" required>
+                </div>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+        </div>
+
+        <div class="tab-content" id="view">
+            <div class="attendance-filters">
+                <input type="date" id="attendanceDate" value="{{ today_date }}">
+                <select id="filterDepartment">
+                    <option value="">All Positions</option>
+                    <option value="HP">HR</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Employee">Employee</option>
+                </select>
+                <select id="filterSemester">
+                    <option value="">All years</option>
+                    <option value="1">2020</option>
+                    <option value="2">2021</option>
+                    <option value="3">2022</option>
+                    <option value="4">2023</option>
+                    <option value="5">2024</option>
+                    <option value="6">2025</option>
+                </select>
+            </div>
+            <div class="attendance-table">
+                <table id="attendanceTable">
+                    <thead>
+                        <tr>
+                            <th>empid</th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Year_of_Joing</th>
+                            <th>mobile_number_and_email</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceData">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
